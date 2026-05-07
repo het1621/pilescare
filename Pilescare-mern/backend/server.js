@@ -58,13 +58,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ─── Vercel & Local Server Setup ──────────────────────────────────────────────
+// ─── Server Setup ──────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 
-// Only listen actively if not in production (local development)
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} [${process.env.NODE_ENV}]`));
-}
+// Listen actively on all environments to keep the Render server alive
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
+});
 
-// Export the Express API for Vercel's serverless functions
 export default app;
