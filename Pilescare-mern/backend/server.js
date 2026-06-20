@@ -77,8 +77,8 @@ app.use((err, req, res, next) => {
 // ─── Server Setup ──────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 
-// Only listen actively if running locally. Vercel will skip this!
-if (process.env.NODE_ENV !== 'production') {
+// Only listen actively if not on Vercel. Vercel uses the exported app!
+if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
   });
