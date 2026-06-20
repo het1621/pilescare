@@ -6,7 +6,8 @@ const connectDB = async () => {
     console.log(`✅ MongoDB connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`❌ MongoDB connection error: ${error.message}`);
-    process.exit(1);
+    // Don't process.exit() — let the server start and fail gracefully per-request
+    // This is especially important for serverless deployments (Vercel)
   }
 };
 

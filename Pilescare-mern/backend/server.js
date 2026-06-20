@@ -14,6 +14,14 @@ import faqRoutes from "./routes/faqs.js";
 import settingsRoutes from "./routes/settings.js";
 import contactRoutes from "./routes/contact.js";
 import timeSlotRoutes from "./routes/timeSlots.js";
+import aboutRoutes from "./routes/about.js";
+import homeContentRoutes from "./routes/homeContent.js";
+import uploadRoutes from "./routes/upload.js";
+import appointmentContentRoutes from "./routes/appointmentContent.js";
+import serviceContentRoutes from "./routes/serviceContent.js";
+import blogContentRoutes from "./routes/blogContent.js";
+import testimonialContentRoutes from "./routes/testimonialContent.js";
+import faqContentRoutes from "./routes/faqContent.js";
 
 connectDB();
 
@@ -28,7 +36,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Rate limiting for public endpoints
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100, standardHeaders: true, legacyHeaders: false });
+const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 1000, standardHeaders: true, legacyHeaders: false });
 const strictLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, handler: (req, res) => res.status(429).json({ detail: 'Too many requests, please try again later.' }) });
 app.use("/api/contact", strictLimiter);
 app.use("/api", limiter);
@@ -43,6 +51,14 @@ app.use("/api/faqs",          faqRoutes);
 app.use("/api/clinic-settings", settingsRoutes);
 app.use("/api/contact",       contactRoutes);
 app.use("/api/time-slots",    timeSlotRoutes);
+app.use("/api/about",         aboutRoutes);
+app.use("/api/home-content",  homeContentRoutes);
+app.use("/api/upload",        uploadRoutes);
+app.use("/api/appointment-content", appointmentContentRoutes);
+app.use("/api/service-content", serviceContentRoutes);
+app.use("/api/blog-content", blogContentRoutes);
+app.use("/api/testimonial-content", testimonialContentRoutes);
+app.use("/api/faq-content", faqContentRoutes);
 
 // ─── Health check ─────────────────────────────────────────────────────────────
 app.get("/api/health", (_, res) => res.json({ status: "ok", env: process.env.NODE_ENV }));

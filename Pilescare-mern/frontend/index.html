@@ -10,6 +10,10 @@
     <title>ProctoCare by Vishva – Advanced Proctology Care</title>
   </head>
   <body>
+    <!-- Custom cursor (desktop only) -->
+    <div id="cursorDot" style="position:fixed;top:0;left:0;width:6px;height:6px;background:#1A5B5E;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;"></div>
+    <div id="cursorRing" style="position:fixed;top:0;left:0;width:36px;height:36px;border:1.5px solid rgba(26,91,94,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);"></div>
+    <style>@media(pointer:coarse){#cursorDot,#cursorRing{display:none!important}}</style>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

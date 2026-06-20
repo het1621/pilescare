@@ -5,7 +5,9 @@ import { protect, adminOnly } from "../middleware/auth.js";
 const router = express.Router();
 router.post("/", async (req, res) => {
   try {
-    const msg = await Contact.create(req.body);
+    // Whitelist only safe public fields — prevents mass-assignment
+    const { name, email, phone, message } = req.body;
+    const msg = await Contact.create({ name, email, phone, message });
     res.status(201).json({ message: "Message received", id: msg._id });
   } catch (e) { res.status(400).json({ detail: e.message }); }
 });

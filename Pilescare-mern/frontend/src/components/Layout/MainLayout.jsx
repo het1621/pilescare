@@ -9,9 +9,23 @@ export function MainLayout() {
   const mainRef = useRef(null);
   const { pathname } = useLocation();
 
-  // Page transition on route change
+  // Page transition on route change — smooth fade + slight rise
   useEffect(() => {
-    gsap.fromTo(mainRef.current, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
+    if (!mainRef.current) return;
+    // Kill any in-progress tween first
+    gsap.killTweensOf(mainRef.current);
+    gsap.fromTo(
+      mainRef.current,
+      { opacity: 0, y: 18, filter: "blur(2px)" },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.55,
+        ease: "power3.out",
+        clearProps: "filter,transform",
+      }
+    );
   }, [pathname]);
 
   return (
@@ -21,7 +35,7 @@ export function MainLayout() {
       <div className="cursor-ring hidden lg:block" id="cursorRing" />
 
       <Navbar />
-      <main ref={mainRef}>
+      <main ref={mainRef} className="pb-16 lg:pb-0">
         <Outlet />
       </main>
       <Footer />

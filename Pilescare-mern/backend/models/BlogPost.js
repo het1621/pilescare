@@ -8,7 +8,7 @@ const blogSchema = new mongoose.Schema({
   category:     { type: String, default: "Education" },
   read_time:    { type: String, default: "5 min read" },
   cover:        { type: String, required: true },
-  content_html: { type: String, required: true },
+  content_html: { type: String, required: true, maxlength: [500000, "Content too large (max 500KB)"] },
   published:    { type: Boolean, default: true },
 }, { timestamps: true });
 
